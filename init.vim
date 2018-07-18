@@ -2,6 +2,7 @@
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
+" Vundle {{{
 " set the runtime path to include Vundle and initialize
 set rtp+=~/vimfiles/bundle/Vundle.vim
 call vundle#begin('~/vimfiles/bundle')
@@ -9,7 +10,7 @@ call vundle#begin('~/vimfiles/bundle')
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" let Vundle manage Vundle {{{
+" let Vundle manage Vundle
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/Visual-Mark'
@@ -42,8 +43,7 @@ Plugin 'equalsraf/neovim-gui-shim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " }}}
-
-" Basic Settings ---------------------------- {{{
+" Basic Settings {{{
 set noswapfile
 set nocompatible                " be iMproved
 set number
@@ -64,7 +64,8 @@ set incsearch
 "Vim useing Unicode setting
   let $LANG="zh_TW.UTF-8"
   set langmenu=zh_tw.utf-8
-  language messages zh_CN.utf-8
+  "language messages zh_CN.utf-8
+  language messages zh_TW.utf-8
   set encoding=utf8
 "reload menu with UTF-8 encoding
   source $VIMRUNTIME/delmenu.vim
@@ -79,8 +80,7 @@ set clipboard=unnamed   " yank to the system register (*) by default
 set showmode            " Show current mode
 set nocp
 " }}}
-" Select the color theme -------------------------------- {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Select the color theme {{{
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
 
 set termguicolors
@@ -92,14 +92,11 @@ colorscheme NeoSolarized
 set cursorline        " Line highlight 設此是游標整行會標註顏色
 hi cursorline cterm=none ctermbg=darkgrey ctermfg=white
 " }}}
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================自動定位上次文件編輯位置================"
+" 自動定位上次文件編輯位置 {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufReadPost * if line("'\"") && line("'\"") <= line("$") | exe "normal `\"" | endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"tab settings ------------------------------------------- {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+"tab settings {{{
 set softtabstop=2
 set tabstop=2
 set shiftwidth=2
@@ -109,10 +106,8 @@ augroup tab_python
   au Filetype python set tabstop=4
   au Filetype python set shiftwidth=4
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================ CtrlP plugin config ==================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+"CtrlP plugin config {{{
 "Change the default mapping and the default command to invoke CtrlP:
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -159,19 +154,13 @@ let g:ctrlp_use_caching = 1
       "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
       "\ 'file': '\v\.(exe|so|dll)$',
       "\ }
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"============== CtrlP TJump plugin config ==============="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" CtrlP TJump plugin config {{{
 nnoremap <c-]> :CtrlPtjump<cr>
 vnoremap <c-]> :CtrlPtjumpVisual<cr>
-
 let g:ctrlp_tjump_only_silent = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================== Ag plugin config ===================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Ag plugin config {{{
 nmap <leader>ag :Ag
 let g:ag_prg="ag --vimgrep
       \ --ignore cscope.files
@@ -183,15 +172,14 @@ let g:ag_prg="ag --vimgrep
 
 let g:ag_working_path_mode='r'
 let g:ag_highlight=1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================ CagtrlSF plugin config =================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap     <leader>sfq <Plug>CtrlSFQuickfixPrompt
-nmap     <leader>sf <Plug>CtrlSFPrompt
-vmap     <leader>sf <Plug>CtrlSFVwordPath
-vmap     <leader>sF <Plug>CtrlSFVwordExec
-nmap     <leader>sn <Plug>CtrlSFCwordPath
-nmap     <leader>sp <Plug>CtrlSFPwordPath
+" }}}
+" CagtrlSF plugin config {{{ 
+nnoremap <leader>sfq <Plug>CtrlSFQuickfixPrompt
+nnoremap <leader>sf <Plug>CtrlSFPrompt
+vnoremap <leader>sf <Plug>CtrlSFVwordPath
+vnoremap <leader>sF <Plug>CtrlSFVwordExec
+nnoremap <leader>sn <Plug>CtrlSFCwordPath
+nnoremap <leader>sp <Plug>CtrlSFPwordPath
 nnoremap <leader>so :CtrlSFOpen<CR>
 nnoremap <leader>st :CtrlSFToggle<CR>
 inoremap <leader>st <Esc>:CtrlSFToggle<CR>
@@ -210,8 +198,8 @@ let g:ctrlsf_auto_close = 0
 let g:ctrlsf_debug_mode = 0
 let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_position = 'bottom'
-
-"Tags List config ------------------------- {{{
+" }}}
+"Tags List config {{{
 let Tlist_Show_One_File = 1 " Displaying tags for only one file~
 let Tlist_Use_Right_Window = 0 " split to the right side of the screen
 let Tlist_Sort_Type = "name" " sort by order or name
@@ -224,10 +212,9 @@ let Tlist_Enable_Fold_Column = 0 " Don't Show the fold indicator column in the t
 let Tlist_Auto_Update = 1
 "let Tlist_WinWidth = 40 "寬度
 "let Tlist_WinHeight = 50 "高度
-nmap <leader>f :TlistOpen<CR>
+nmap <leader>to :TlistOpen<CR>
 " }}}
-
-"rainbow_parentheses.vim ------------------ {{{
+" rainbow_parentheses.vim {{{
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
     \ ['Darkblue',    'SeaGreen3'],
@@ -245,7 +232,6 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
-" }}}
 " 不加入?行, 防止黑色括?出?, 很???
 " " \ ['black',       'SeaGreen3'],
 "
@@ -255,32 +241,22 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================== TagBar config ========================"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" TagBar config {{{
 let g:tagbar_left = 1
 let g:tagbar_autofocus = 0
-nmap t :TagbarToggle<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================== NERDtree config ========================"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>r  :NERDTreeFind <CR>
-nmap <leader>ed :e %:p:h <CR>
-
+nnoremap t :TagbarToggle<CR>
+" }}}
+" NERDtree config {{{
+nnoremap <leader>r  :NERDTreeFind <CR>
+nnoremap <leader>ed :e %:p:h <CR>
 "let NERDTreeWinPos = "right"
-
 " 控制?光?移?超?一定距离?，是否自??焦??整到屏中心
 let NERDTreeAutoCenter = 1
-
 " " 指定鼠?模式（1.??打?；2.?目??文件；3.??打?）
 " let NERDTreeMouseMode=2
-
 " " 是否默??示??列表
 " let NERDTreeShowBookmarks=1
-
 " " 是否默??示文件
 let NERDTreeShowFiles=1
 
@@ -296,22 +272,13 @@ let NERDTreeShowHidden=1
 " " 窗口?
 " let NERDTreeWinSize=31
 "change default arrows
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================ NERD_commenter config ================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap mm <Plug>Vm_toggle_sign
-nmap mn <plug>Vm_goto_next_sign
-nmap mp <Plug>Vm_goto_prev_sign
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================ NERD_commenter config ================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map cx <plug>NERDCommenterUncomment
-map cc <plug>NERDCommenterComment
-map cb <plug>NERDCommenterAlignBoth
+" }}}
+" NERD_commenter config {{{
+nnoremap mm <Plug>Vm_toggle_sign
+nnoremap mn <plug>Vm_goto_next_sign
+nnoremap mp <Plug>Vm_goto_prev_sign
+" }}}
+" NERD_commenter config {{{
 let NERD_c_alt_style=1
 "if &filetype == "asl"
   "set ft = asl
@@ -324,78 +291,24 @@ let g:NERDCustomDelimiters = {
     \ 'uefi': { 'left': '#'},
     \ 'hfr' : { 'left': '//'},
 \ }
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"=================== MiniBufExplorer ===================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:miniBufExplMapCTabSwitchBufs = 1
-"let g:miniBufExplModSelTarget = 1
-"let g:miniBufExplorerMoreThanOne = 0
-"let g:miniBufExplModSelTarget = 0
-"let g:miniBufExplShowBufNumbers = 0
-"let g:miniBufExplCycleArround = 1
-"let g:miniBufExplForceSyntaxEnable = 1
-"let g:miniBufExplUseSingleClick = 1
-"let g:miniBufExplVSplit = 25
-"let g:miniBufExplSplitBelow=1
-
-"" MiniBufExpl Colors
-"hi MBENormal               guifg=#808080 guibg=fg
-"hi MBEChanged              guifg=#CD5907 guibg=fg
-"hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-"hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-"hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-"hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
-"let g:did_minibufexplorer_syntax_inits = 1
-
-"autocmd BufRead,BufNew,BufWritePost :call MiniBufExplorer
-
-"Alt-Right
-"nmap <A-right> :MBEbp<CR>  
-
-"Alt-Left
-"nmap <A-left> :MBEbn<CR>  
-
-"Close buffer tab
-"nmap <C-c> :MBEbd<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"=================== Copy file path ====================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Copy file path {{{
 " Copy current buffer path relative to root of VIM session to system clipboard
-nmap <leader>cp :CopyAbsolutePath<CR>:echo "Copied file path to clipboard"<cr>
+nnoremap <leader>cp :CopyAbsolutePath<CR>:echo "Copied file path to clipboard"<cr>
 
 " Copy current filename to system clipboard
-nmap <leader>cf :CopyFileName<CR>:echo "Copied file name to clipboard"<cr>
+nnoremap <leader>cf :CopyFileName<CR>:echo "Copied file name to clipboard"<cr>
 
 " Copy current buffer path without filename to system clipboard
-nmap <leader>cd :CopyDirectoryPath<CR>:echo "Copied file directory to clipboard"<cr>
+nnoremap <leader>cd :CopyDirectoryPath<CR>:echo "Copied file directory to clipboard"<cr>
 
-nmap <leader>e :!start cmd /c "explorer.exe" %:h<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================ Y yanks from cursor to ================"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap Y y$
-nmap D d$
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"===================== vi 分割視窗 ======================"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap sh :split<CR>
-nmap sv :vsplit<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"====================== Folding ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap F v%zfzz
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"============= Air line plugin setting ==================" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>e :!start cmd /c "explorer.exe" %:h<CR>
+"}}}
+" vi 分割視窗 {{{
+nnoremap sh :split<CR>
+nnoremap sv :vsplit<CR>
+" }}}
+" Air line plugin setting {{{ 
 " set status line
 set laststatus=2
 let g:airline_powerline_fonts=1 
@@ -444,55 +357,14 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 nmap <A-Left>  :bp <cr>
 nmap <A-right> :bn <cr>
 nmap <C-c>     :bd <cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"=============== SrcExpl plugin setting =================" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" // The switch of the Source Explorer 
-nmap <A-c> :SrcExplToggle<CR> 
-
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 5
-
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 750
-
-" // Set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 0
-
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-
-" // In order to avoid conflicts, the Source Explorer should know what plugins "
-" // except itself are using buffers. And you need add their buffer names into "
-" // below listaccording to the command ":buffers!"                            "
- let g:SrcExpl_pluginList = [
-         \ "_NERD_tree_",
-         \ "-MiniBufExplorer-",
-         \ "__Tagbar__"
-     \ ]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"============== vcscommand plugin setting ===============" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>svnd <Plug>VCSVimDiff
-nmap <leader>svns <Plug>VCSStatus
-nmap <leader>svnr <Plug>VCSRevert
-nmap <leader>svnl <Plug>VCSLog
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"============== LookUpFile plugin setting ===============" 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" vcscommand plugin setting {{{ 
+nnoremap <leader>svnd <Plug>VCSVimDiff
+nnoremap <leader>svns <Plug>VCSStatus
+nnoremap <leader>svnr <Plug>VCSRevert
+nnoremap <leader>svnl <Plug>VCSLog
+" }}}
+" LookUpFile plugin setting {{{ 
 " Lookup File
 " Author: happyvim
 " Function: ProjectTagUpdateLookupFile
@@ -548,13 +420,8 @@ let g:LookupFile_TagExpr = '"LookUpFile.tag"'
 "搜索文件 映射LookupFile?,t
 "nmap <silent> <leader>t :LookupFile<CR>
 "nmap <silent> <leader>t :LookupFile<CR>
-
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"=============== Cscope plugin setting =================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" Cscope plugin setting {{{
 if has("cscope")
   set csprg=cscope
   set csto=1
@@ -604,19 +471,15 @@ nnoremap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
 nnoremap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nnoremap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nnoremap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"============= bufexplorer plugin setting ==============="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" bufexplorer plugin setting {{{
 " New split window is n columns wide.
 let g:bufExplorerVertSize=40
 
 " Split right.
 let g:bufExplorerSplitRight=1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======== Statusline Always hide the statusline ========="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" Statusline Always hide the statusline {{{
 "set laststatus=2
 "set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \
 "set statusline+=\ \ \ [%{&ff}/%Y]
@@ -636,93 +499,25 @@ function! HasPaste()
     return ''
   endif
 endfunction
+" }}}
+" Toggle quickfix windows {{{
+nnoremap <A-k> :call <SID>QuickfixToggle()<cr>
 
+let g:quickfix_is_open = 0
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================== CTRL 鍵 + 上下左右 =================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <C-right> <ESC><C-W>l
-"cmap <C-right> <ESC><C-W>l
-"imap <C-right> <ESC><C-W>l
-"vmap <C-right> <ESC><C-W>l
-"omap <C-right> <ESC><C-W>l
-
-"nmap <C-down> <ESC><C-W>j
-"cmap <C-down> <ESC><C-W>j
-"imap <C-down> <ESC><C-W>j
-"vmap <C-down> <ESC><C-W>j
-"omap <C-down> <ESC><C-W>j
-
-"nmap <C-up> <ESC><C-W>k
-"cmap <C-up> <ESC><C-W>k
-"imap <C-up> <ESC><C-W>k
-"vmap <C-up> <ESC><C-W>k
-"omap <C-up> <ESC><C-W>k
-
-"nmap <C-left> <ESC><C-W>h
-"cmap <C-left> <ESC><C-W>h
-"imap <C-left> <ESC><C-W>h
-"vmap <C-left> <ESC><C-W>h
-"omap <C-left> <ESC><C-W>h
-
-nmap <silent> <C-left> :wincmd h<CR>
-nmap <silent> <C-down> :wincmd j<CR>
-nmap <silent> <C-up> :wincmd k<CR>
-nmap <silent> <C-right> :wincmd l<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"================== ALT 鍵 + 上下左右 =================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Up
-nmap <A-k> :copen<CR>  
-
-"Down
-nmap <A-j> :cclose<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F1 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <F1> :e ~/.vim/VimHelp.vim<CR>
-"cmap <F1> <ESC> :e ~/.vim/VimHelp.vim<CR>
-"imap <F1> <ESC> :e ~/.vim/VimHelp.vim<CR>
-"vmap <F1> <ESC> :e ~/.vim/VimHelp.vim<CR>
-"omap <F1> <ESC> :e ~/.vim/VimHelp.vim<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F2 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F2> :w<cr>
-cmap <F2> <Esc> :w<CR>
-imap <F2> <Esc> :w<CR>
-vmap <F2> <Esc> :w<CR>
-omap <F2> <Esc> :w<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F3 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F4 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F4> :q!<CR>
-cmap <F4> <Esc> :q!<CR>
-imap <F4> <Esc> :q!<CR>
-vmap <F4> <Esc> :q!<CR>
-omap <F4> <Esc> :q!<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F5 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F5> :A<CR>
-cmap <F5> <Esc> :A<CR>
-imap <F5> <Esc> :A<CR>
-vmap <F5> <Esc> :A<CR>
-omap <F5> <Esc> :A<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F6 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:QuickfixToggle()
+  if g:quickfix_is_open
+    cclose
+    let g:quickfix_is_open = 0
+    execute g:quickfix_return_to_window . "wincmd w"
+  else
+    let g:quickfix_return_to_window = winnr()
+    copen
+    let g:quickfix_is_open = 1
+  endif
+endfunction
+" }}}
+" F6 key {{{
 "替換文字
 nmap <F6> :1,$s/<C-R>=expand("<cword>")<CR>//gic<left><left><left><left>
 cmap <F6> <Esc> :1,$s/<C-R>=expand("<cword>")<CR>//gic<left><left><left><left>
@@ -739,75 +534,40 @@ omap <F6> <Esc> :1,$s/<C-R>=expand("<cword>")<CR>//gic<left><left><left><left>
 ":g!/^dd/d                   刪除不含字符串'dd'的行 
 ":v/^dd/d                    同上 （??：v ==&nbspg!，就是不匹配！） 
 ":g/str1/,/str2/d            刪除所有第一個含str1到第一個含str2之間的行 
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F7 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" F7 key {{{
 nmap <F7> :set hls!<BAR>set hls?<CR>
 cmap <F7> <Esc> :set hls!<BAR>set hls?<CR>
 imap <F7> <Esc> :set hls!<BAR>set hls?<CR>
 vmap <F7> <Esc> :set hls!<BAR>set hls?<CR>
 omap <F7> <Esc> :set hls!<BAR>set hls?<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"======================= F9 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nmap <F9> :%!xxd<CR>
-"cmap <F9> <Esc> :%!xxd<CR>
-"imap <F9> <Esc> :%!xxd<CR>
-"vmap <F9> <Esc> :%!xxd<CR>
-"omap <F9> <Esc> :%!xxd<CR>
-
-"nmap <F9> :!Build<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"====================== F10 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" F10 key {{{
 nmap <F10> :diffthis<CR>
 "文件合并
 "dp 將當前窗口光標位置處的內容複制到另一個窗口 
 "do 將另一窗口光標位置處的內容複制到當前窗口
 "diffupdate 重新比較兩個文件內容，如果手動修改文件的話有時不會自動同步
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"====================== F11 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F11> :set ic!<BAR>set noic?<CR>
-cmap <F11> <Esc> :set ic!<BAR>set noic?<CR>
-imap <F11> <Esc> :set ic!<BAR>set noic?<CR>
-vmap <F11> <Esc> :set ic!<BAR>set noic?<CR>
-omap <F11> <Esc> :set ic!<BAR>set noic?<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"====================== F12 key ========================="
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" F12 key {{{
 nmap <F12> :%s= *$==<cr>
 cmap <F12> <Esc> :%s= *$==<cr>
 imap <F12> <Esc> :%s= *$==<cr>
 vmap <F12> <Esc> :%s= *$==<cr>
 omap <F12> <Esc> :%s= *$==<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"===================== ctags settings ===================="
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+" ctags settings {{{
 set tags=./tags,tags;
-
-"=========================================================="
-"========== Open the directory for the current file ======="
-"=========================================================="
-
+" }}}
+" Open the directory for the current file {{{
 noremap <C-e> :!start explorer %:p:h:gs?\/?\\\\\\?<CR>
-
-"=========================================================="
-"===========Use Tab and Shift-Tab for Indentation=========="
-"=========================================================="
+" }}}
+" Use Tab and Shift-Tab for Indentation {{{
 "nnoremap <tab>    v>
 "nnoremap <s-tab>  v<
 "vnoremap <tab>    >gv
 "vnoremap <s-tab>  <gv
-
+" }}}
 " Homework ----------------------------------------------- {{{
 " Disable Esc
 inoremap <Esc> <nop>
@@ -832,10 +592,10 @@ nnoremap <leader>sg *<c-w><c-w>n$yi"
 nnoremap <leader>ev :vsplit $MYVIMRC <cr>
 " source vimrc
 nnoremap <leader>sv :source $MYVIMRC <cr>
+" grep something
+"nnoremap <leader>g :execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr>
 " }}}
-"=========================================================="
-"==================== Abbreviation ========================"
-"=========================================================="
+" Abbreviation {{{
 augroup abbgroup
   autocmd!
   autocmd FileType javascript :iabbrev <buffer> iff if ()<left>
@@ -845,6 +605,7 @@ augroup abbgroup
   autocmd FileType python    :iabbrev <buffer> iff if:<left>
 augroup END
 iab dmg DEBUG ((EFI_D_INFO, ""));<left><left><left><left>
+" }}}
 " C file settings {{{
 augroup filetype_c
   autocmd!
@@ -857,3 +618,96 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+" For testing ---------------------------------------------{{{
+function! GetMeow()
+  return "Meow String!"
+endfunction
+
+function! TextwidthIsTooWide()
+  if &l:textwidth ># 80
+    return 1
+  endif
+endfunction
+function! Mynumber(arg)
+  echo line(".") . " " . a:arg
+endfunction
+
+function! Cont() range
+  execute (a:firstline + 1) . "," . a:lastline . 's/^/\t\\ '
+endfunction
+
+function! PrintKey()
+  let mydict = {"one": 1, "three": 3, "two": 2}
+  for [key, value] in items(mydict)
+    echo key . ': ' . value
+  endfor
+endfunction
+
+let mydict = {'data': [0, 1, 2, 3]}
+function! mydict.len()
+  return len(self.data)
+endfunction
+
+function! Varg(...)
+  echom a:0
+  echom a:1
+  echom a:2
+  echo a:000
+endfunction
+
+function! Assign(foo)
+  let a:foo = "Nope"
+  echom a:foo
+endfunction
+
+function! Table(title, ...)
+  echohl Title
+  echo a:title
+  echohl None
+  echo a:0 . " items:"
+  for s in a:000
+    echon ' ' . s
+  endfor
+endfunction
+nnoremap <leader>hb :leftabove vsplit bufname("#")<cr>
+" }}}
+" Update Dsc and Uni {{{
+function! Dsc1()
+  let dsc = [
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\CoffeeLakeMultiBoardPkg\Project.dsc',
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\CannonLakeMultiBoardPkg\Project.dsc',
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\WhiskeyLakeMultiBoardPkg\Project.dsc'] 
+  for dir in dsc
+    execute "edit!" . dir
+    execute "normal! gg" . '/PcdType000Strings' . "\<cr>"
+    execute "normal! f5R5.23.21.0015;06/06"
+    w
+  endfor
+endfu
+command! Dsc1 call Dsc1()
+
+function! Uni1()
+  let uni = [
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\CoffeeLakeMultiBoardPkg\Project.uni',
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\CannonLakeMultiBoardPkg\Project.uni',
+    \'D:\sourcecode\cnl\Tag15Update2Kernel19\WhiskeyLakeMultiBoardPkg\Project.uni']
+  for dir in uni
+    execute "edit!" . dir
+    execute "normal! gg" . '/str_misc_bios_version' . "\<cr>"
+    execute "normal! f5R5.23.22"
+    execute "normal! " . '/string str_ccb_version' . "\<cr>"
+    execute "normal! f5R5.23.22"
+    execute "normal! " . '/str_misc_bios_release_date' . "\<cr>"
+    execute "normal! f5R6/06"
+    execute "normal! " . '/str_esrt_version' . "\<cr>"
+    execute "normal! f5R58222015"
+    w
+  endfor
+
+endfu
+command! Uni1 call Uni1()
+" }}}
+" Terminal Mode
+tnoremap <Esc> <C-\><C-N>
+" save file and source file
+nnoremap <leader>w :w<cr>:so %<cr>
